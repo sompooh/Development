@@ -7,10 +7,11 @@
 
 import ProjectDescription
 
-let appName = Environment.appName.getString(default: "MainApp")
-let appNameIsMainApp = appName == "MainApp"
+//let appName = Environment.appName.getString(default: "MainApp")
+//let appNameIsMainApp = appName == "MainApp"
+//appNameIsMainApp ? ["Projects/MainApp", "Projects/DataApp"] : []
 
-let projects: [Path] = appNameIsMainApp ? ["Projects/MainApp"] : []
+let projects: [Path] = ["Projects/MusicPlayApp", "Projects/DataApp", "Projects/DomainApp"]
 
 let workspace = Workspace(name: "Development",
                           projects: projects)
