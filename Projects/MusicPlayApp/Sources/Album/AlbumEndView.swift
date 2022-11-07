@@ -6,29 +6,31 @@
 //  Copyright © 2022 com.nami.tuist.data. All rights reserved.
 //
 
+import Domain
 import SwiftUI
 import MediaPlayer
 
 struct AlbumEndView: View {
     @EnvironmentObject var playerViewModel: PlayerViewModel
-    let album: MPMediaItemCollection
+    @EnvironmentObject var albumViewModel: AlbumViewModel
+    let album: Album
     
     var body: some View {
         List {
             VStack(spacing: 0) {
-                Image(uiImage: album.representativeItem?.artwork?.image(at: CGSize(width: 300, height: 300)) ??  UIImage())
+                Image(uiImage: album.artworkImage ??  UIImage())
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .cornerRadius(10)
                     .padding(20)
                 
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(album.representativeItem?.albumTitle ?? "")
+                    Text(album.title ?? "")
                         .font(.system(size: 14, weight: .bold))
                         .foregroundColor(.black)
                         .padding(.leading, 20)
                         .padding(.bottom, 3)
-                    Text(album.representativeItem?.albumArtist ?? "")
+                    Text(album.artist ?? "")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.black.opacity(0.5))
                         .padding([.leading, .bottom], 20)
@@ -59,8 +61,8 @@ struct AlbumEndView: View {
             }
             .padding(.bottom, 10)
                 
-            ForEach(album.items, id: \.self) { song in
-                TrackCardView(song: song)
+            ForEach(album.trackList ?? [], id: \.self) { track in
+                TrackCardView(track: track)
                     .environmentObject(playerViewModel)
             }
         }

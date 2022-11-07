@@ -12,12 +12,14 @@ import MediaPlayer
 
 struct ContentView: View {
     @EnvironmentObject var playerViewModel: PlayerViewModel
+    @EnvironmentObject var albumViewModel: AlbumViewModel
     @Namespace var animation
     
     var body: some View {
         ZStack {
             AlbumsView()
                 .environmentObject(playerViewModel)
+                .environmentObject(albumViewModel)
                 .zIndex(1)
             
             ZStack(alignment: .bottom) {

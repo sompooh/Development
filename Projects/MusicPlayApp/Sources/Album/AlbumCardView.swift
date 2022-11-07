@@ -6,23 +6,24 @@
 //  Copyright © 2022 com.nami.tuist.data. All rights reserved.
 //
 
+import Domain
 import SwiftUI
 import MediaPlayer
 
 struct AlbumCardView: View {
-    let album: MPMediaItemCollection
+    let album: Album
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Image(uiImage: album.representativeItem?.artwork?.image(at: CGSize(width: 300, height: 300)) ??  UIImage())
+            Image(uiImage: album.artworkImage ?? UIImage())
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
             HStack {
                 VStack(alignment: .leading) {
-                    Text(album.representativeItem?.albumTitle ?? "")
+                    Text(album.title ?? "")
                         .font(.system(size: 14, weight: .bold))
                         .foregroundColor(.white)
-                    Text(album.representativeItem?.albumArtist ?? "")
+                    Text(album.artist ?? "")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.white.opacity(0.5))
                 }

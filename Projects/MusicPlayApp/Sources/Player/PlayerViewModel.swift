@@ -14,12 +14,11 @@ class PlayerViewModel: ObservableObject {
     static let shared = PlayerViewModel()
     
     var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
-    private var cancellable: Set<AnyCancellable> = []
+    private var bag: Set<AnyCancellable> = Set<AnyCancellable>()
     
     @Published var currentSong: MPMediaItem?
     @Published var isPlayerViewExpand = false
     @Published var isPlaying = false
-    @Published var volume: CGFloat = 0
     var currentTime: CGFloat {
         musicPlayer.currentPlaybackTime
     }
@@ -28,7 +27,6 @@ class PlayerViewModel: ObservableObject {
     }
     
     @Published var albums = [MPMediaItemCollection]()
-    @Published var tracks = [MPMediaItem]()
     
     init() {
         NotificationCenter.default.publisher(for: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange)
@@ -36,29 +34,14 @@ class PlayerViewModel: ObservableObject {
                 guard let self = self else { return }
                 self.currentSong = self.musicPlayer.nowPlayingItem
             }
-            .store(in: &cancellable)
+            .store(in: &bag)
         
-        NotificationCenter.default.publisher(for: NSNotification.Name.MPMusicPlayerControllerVolumeDidChange)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.volume = CGFloat(AVAudioSession.sharedInstance().outputVolume)
-            }
-            .store(in: &cancellable)
-    }
-    
-    func fetchSongs() {
-        let songsQuery = MPMediaQuery.songs()
-        if let songs = songsQuery.items {
-            let sortType = NSSortDescriptor(key: MPMediaItemPropertyTitle, ascending: true)
-            if let sortedSongs = NSArray(array: songs).sortedArray(using: [sortType]) as? [MPMediaItem] {
-                tracks = sortedSongs
-            }
-        }
-        
-        let albumsQuery = MPMediaQuery.albums()
-        if let albums = albumsQuery.collections {
-            self.albums = albums
-        }
+//        NotificationCenter.default.publisher(for: NSNotification.Name.MPMusicPlayerControllerVolumeDidChange)
+//            .sink { [weak self] _ in
+//                guard let self = self else { return }
+//                self.volume = CGFloat(AVAudioSession.sharedInstance().outputVolume)
+//            }
+//            .store(in: &bag)
     }
 
 }

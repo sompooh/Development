@@ -10,7 +10,10 @@ import ProjectDescriptionHelpers
 
 let musicTargets = Project.appTargets(name: "MusicPlayApp",
                                       product: .app,
-                                      appDependencies: [],
+                                      appDependencies: [
+                                        .project(target: "Domain", path: "../DomainApp"),
+                                        .project(target: "Data", path: "../DataApp")
+                                      ],
                                       testDependencies: [],
                                       resources: ["Resources/**", "Sources/**/*.storyboard", "Sources/**/*.xib"],
                                       deploymentTarget: .iOS(targetVersion: "14.0", devices: DeploymentDevice.iphone),

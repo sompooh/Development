@@ -5,28 +5,37 @@
 //  Created by USER on 2022/11/05.
 //
 
+import Data
+import Domain
 import SwiftUI
 import MediaPlayer
 
 @main
 struct MusicPlayApp: App {
     @ObservedObject var playerViewModel = PlayerViewModel.shared
+    @ObservedObject var albumViewModel: AlbumViewModel
     
     init() {
-        NavigationBarConfigure.setColors(background: UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1), titleColor: .white, tintColor: .white)
+        let repository = MPMusicRepository(dataStorage: MPMusicStorage())
+        let useCase = DefaultMusicFetchUseCase(repository: repository)
+        albumViewModel = AlbumViewModel(useCase: useCase)
+        
+        
+        setNavigationBarConfigure()
     }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(playerViewModel)
+                .environmentObject(albumViewModel)
                 .onAppear(perform: {
                     Task {
                         let isAuthorized = await requestAuthorizationForMediaLibrary()
                         guard isAuthorized else {
                             return
                         }
-                        playerViewModel.fetchSongs()
+                        albumViewModel.executeFetch()
                     }
                 })
         }
@@ -39,6 +48,10 @@ struct MusicPlayApp: App {
         }
         status = await MPMediaLibrary.requestAuthorization()
         return status == .authorized
+    }
+    
+    private func setNavigationBarConfigure() {
+        NavigationBarConfigure.setColors(background: UIColor(red: 0.3, green: 0.6, blue: 0.9, alpha: 1), titleColor: .white, tintColor: .white)
     }
 }
 
