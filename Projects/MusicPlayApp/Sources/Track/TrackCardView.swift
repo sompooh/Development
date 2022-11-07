@@ -6,35 +6,36 @@
 //  Copyright © 2022 com.nami.tuist.data. All rights reserved.
 //
 
+import Domain
 import SwiftUI
 import MediaPlayer
 
 struct TrackCardView: View {
     @EnvironmentObject var playerViewModel: PlayerViewModel
-    let song: MPMediaItem
+    let track: Track
     
     var body: some View {
         HStack {
-            Image(uiImage: song.artwork?.image(at: CGSize(width: 300, height: 300)) ??  UIImage())
+            Image(uiImage: track.artworkImage ?? UIImage())
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 60, height: 60)
             VStack(alignment: .leading) {
-                Text(song.title ?? "")
+                Text(track.title ?? "")
                     .font(.system(size: 14, weight: .bold))
                     .foregroundColor(.black)
-                Text(song.artist ?? "")
+                Text(track.artist ?? "")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.black.opacity(0.5))
             }
             Spacer()
         }
         .onTapGesture {
-            playerViewModel.musicPlayer.setQueue(with: MPMediaItemCollection(items: [song]))
-            playerViewModel.musicPlayer.play()
-            withAnimation {
-                playerViewModel.isPlaying = true
-            }
+//            playerViewModel.musicPlayer.setQueue(with: MPMediaItemCollection(items: [song]))
+//            playerViewModel.musicPlayer.play()
+//            withAnimation {
+//                playerViewModel.isPlaying = true
+//            }
         }
     }
 }

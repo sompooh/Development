@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MediaPlayer
+import Domain
 
 @main
 struct DataApp: App {
