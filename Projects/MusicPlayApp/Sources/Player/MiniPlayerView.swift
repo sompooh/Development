@@ -18,7 +18,7 @@ struct MiniPlayerView: View {
     }
     
     var body: some View {
-        let currentSong = playerViewModel.currentSong
+        let currentTrack = playerViewModel.currentTrack
         VStack(spacing: 0) {
             Spacer(minLength: 0)
             VStack(spacing: 0) {
@@ -26,7 +26,7 @@ struct MiniPlayerView: View {
                     .environmentObject(playerViewModel)
                     .matchedGeometryEffect(id: "player.progress", in: animation)
                 HStack() {
-                    Image(uiImage: currentSong?.artwork?.image(at: CGSize(width: 100, height: 100)) ?? emptyArtwork)
+                    Image(uiImage: currentTrack?.artworkImage ?? emptyArtwork)
                         .resizable()
                         .aspectRatio(1, contentMode: .fit)
                         .matchedGeometryEffect(id: "player.artWork", in: animation)
@@ -34,11 +34,11 @@ struct MiniPlayerView: View {
                         .padding(.horizontal, 10)
                         .padding(.vertical, 3)
                     VStack(alignment: .leading) {
-                        if let currentSong = currentSong {
-                            Text(currentSong.title ?? "")
+                        if let currentTrack = currentTrack {
+                            Text(currentTrack.title ?? "")
                                 .font(.system(size: 14, weight: .bold))
                                 .foregroundColor(.white)
-                            Text(currentSong.artist ?? "")
+                            Text(currentTrack.artist ?? "")
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.white.opacity(0.5))
                         } else {
@@ -52,9 +52,13 @@ struct MiniPlayerView: View {
                     HStack {
                         PlayButton(fontSize: 30, color: .white)
                             .matchedGeometryEffect(id: "player.button", in: animation)
-                        Image(systemName: "forward.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(.white)
+                        Button(action: {
+                            playerViewModel.musicPlayer.skipToNextItem()
+                        }) {
+                            Image(systemName: "forward.fill")
+                                .font(.system(size: 25))
+                                .foregroundColor(.white)
+                        }
                     }
                     .padding(10)
                 }

@@ -16,7 +16,7 @@ struct FullPlayerView: View {
     private let emptyArtwork = UIImage(named: "placeholder") ?? UIImage()
     
     var body: some View {
-        let currentSong = playerViewModel.currentSong
+        let currentTrack = playerViewModel.currentTrack
         VStack {
             Rectangle()
                 .foregroundColor(.gray)
@@ -24,18 +24,18 @@ struct FullPlayerView: View {
                 .cornerRadius(4)
                 .padding()
             Spacer(minLength: 0)
-            Image(uiImage: currentSong?.artwork?.image(at: CGSize(width: 300, height: 300)) ?? emptyArtwork)
+            Image(uiImage: currentTrack?.artworkImage ?? emptyArtwork)
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
                 .matchedGeometryEffect(id: "player.artWork", in: animation)
                 .cornerRadius(10)
                 .padding(20)
             VStack {
-                if let currentSong = currentSong {
-                    Text(currentSong.title ?? "")
+                if let currentTrack = currentTrack {
+                    Text(currentTrack.title ?? "")
                         .font(.system(size: 14, weight: .bold))
                         .foregroundColor(.white)
-                    Text(currentSong.artist ?? "")
+                    Text(currentTrack.artist ?? "")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.white.opacity(0.5))
                 } else {
@@ -51,12 +51,19 @@ struct FullPlayerView: View {
                 .matchedGeometryEffect(id: "player.progress", in: animation)
                 .padding(20)
             HStack {
-                Button(action: {}) {
+                Button(action: {
+                    playerViewModel.changeRepeatMode()
+                }) {
                     ZStack {
                         Color.clear.frame(width: 44, height: 44)
-                        Image(systemName: "repeat")
-                            .font(.system(size: 20))
-                            .foregroundColor(.white)
+                        switch playerViewModel.musicPlayer.repeatMode {
+                        case .all:
+                            Image(systemName: "repeat").foregroundColor(.white).font(.system(size: 20))
+                        case .one:
+                            Image(systemName: "repeat.1").foregroundColor(.white).font(.system(size: 20))
+                        default:
+                            Image(systemName: "repeat").foregroundColor(.white.opacity(0.5)).font(.system(size: 20))
+                        }
                     }
                 }
                 Spacer()
@@ -85,12 +92,17 @@ struct FullPlayerView: View {
                     }
                 }
                 Spacer()
-                Button(action: {}) {
+                Button(action: {
+                    playerViewModel.changeShuffleMode()
+                }) {
                     ZStack {
                         Color.clear.frame(width: 44, height: 44)
-                        Image(systemName: "shuffle")
-                            .font(.system(size: 20))
-                            .foregroundColor(.white)
+                        switch playerViewModel.musicPlayer.shuffleMode {
+                        case .off, .default:
+                            Image(systemName: "shuffle").foregroundColor(.white.opacity(0.5)).font(.system(size: 20))
+                        default:
+                            Image(systemName: "shuffle").foregroundColor(.white).font(.system(size: 20))
+                        }
                     }
                 }
             }

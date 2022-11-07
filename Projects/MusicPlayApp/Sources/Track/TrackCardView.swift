@@ -31,11 +31,10 @@ struct TrackCardView: View {
             Spacer()
         }
         .onTapGesture {
-//            playerViewModel.musicPlayer.setQueue(with: MPMediaItemCollection(items: [song]))
-//            playerViewModel.musicPlayer.play()
-//            withAnimation {
-//                playerViewModel.isPlaying = true
-//            }
+            playerViewModel.play(track: track)
+            withAnimation {
+                playerViewModel.isPlaying = true
+            }
         }
     }
 }
