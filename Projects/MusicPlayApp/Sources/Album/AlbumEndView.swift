@@ -36,23 +36,34 @@ struct AlbumEndView: View {
                         .padding([.leading, .bottom], 20)
                     HStack {
                         Button(action: {
+                            guard let track = album.trackList?.first else { return }
+                            playerViewModel.play(track: track)
                         }) {
-                            Image(systemName: "play.fill")
-                                .font(.system(size: 25))
-                                .foregroundColor(.white)
+                            ZStack {
+                                Color.clear.frame(maxWidth: .infinity)
+                                Image(systemName: "play.fill")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(.white)
+                            }
                         }
-                        .frame(maxWidth: .infinity)
+                        .buttonStyle(BorderlessButtonStyle())
                         .frame(height: 44)
                         .background(Color.black.opacity(0.5))
                         .cornerRadius(10)
                         
                         Button(action: {
+                            guard let track = album.trackList?.randomElement() else { return }
+                            playerViewModel.musicPlayer.shuffleMode = .songs
+                            playerViewModel.play(track: track)
                         }) {
-                            Image(systemName: "shuffle")
-                                .font(.system(size: 25))
-                                .foregroundColor(.white)
+                            ZStack {
+                                Color.clear.frame(maxWidth: .infinity)
+                                Image(systemName: "shuffle")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(.white)
+                            }
                         }
-                        .frame(maxWidth: .infinity)
+                        .buttonStyle(BorderlessButtonStyle())
                         .frame(height: 44)
                         .background(Color.black.opacity(0.5))
                         .cornerRadius(10)
