@@ -19,7 +19,8 @@ let musicTargets = Project.appTargets(name: "MusicPlayApp",
                                       deploymentTarget: .iOS(targetVersion: "14.0", devices: DeploymentDevice.iphone),
                                       infoPlist: .extendingDefault(with: [
                                         "NSAppleMusicUsageDescription": "음악을 재생합니다.",
-                                        "UILaunchScreen": ""
+                                        "UILaunchScreen": "",
+                                        "UIBackgroundModes": ["audio"]
                                       ]))
 
 let musicProject = Project(name: "MusicPlayApp",
