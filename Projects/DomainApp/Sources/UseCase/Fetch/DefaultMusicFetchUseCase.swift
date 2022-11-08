@@ -11,9 +11,9 @@ import Combine
 
 public final class DefaultMusicFetchUseCase: MusicFetchUseCase {
     
-    let repository: MusicRepository
+    let repository: MusicDataRepository
     
-    public init(repository: MusicRepository) {
+    public init(repository: MusicDataRepository) {
         self.repository = repository
     }
     

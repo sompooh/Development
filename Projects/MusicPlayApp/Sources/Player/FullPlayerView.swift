@@ -57,7 +57,7 @@ struct FullPlayerView: View {
                 }) {
                     ZStack {
                         Color.clear.frame(width: 44, height: 44)
-                        switch playerViewModel.musicPlayer.repeatMode {
+                        switch playerViewModel.repeatMode {
                         case .all:
                             Image(systemName: "repeat").foregroundColor(.white).font(.system(size: 20))
                         case .one:
@@ -69,7 +69,7 @@ struct FullPlayerView: View {
                 }
                 Spacer()
                 Button(action: {
-                    playerViewModel.musicPlayer.skipToPreviousItem()
+                    playerViewModel.skipToPreviousItem()
                 }) {
                     ZStack {
                         Color.clear.frame(width: 44, height: 44)
@@ -82,7 +82,7 @@ struct FullPlayerView: View {
                 PlayButton(fontSize: 40, color: .white)
                 Spacer()
                 Button(action: {
-                    playerViewModel.musicPlayer.skipToNextItem()
+                    playerViewModel.skipToNextItem()
                 }) {
                     ZStack {
                         Color.clear.frame(width: 44, height: 44)
@@ -97,8 +97,8 @@ struct FullPlayerView: View {
                 }) {
                     ZStack {
                         Color.clear.frame(width: 44, height: 44)
-                        switch playerViewModel.musicPlayer.shuffleMode {
-                        case .off, .default:
+                        switch playerViewModel.shuffleMode {
+                        case .off:
                             Image(systemName: "shuffle").foregroundColor(.white.opacity(0.5)).font(.system(size: 20))
                         default:
                             Image(systemName: "shuffle").foregroundColor(.white).font(.system(size: 20))

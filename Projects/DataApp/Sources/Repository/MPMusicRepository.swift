@@ -19,7 +19,7 @@ final public class MPMusicRepository {
     }
 }
     
-extension MPMusicRepository: MusicRepository {
+extension MPMusicRepository: MusicDataRepository {
     public func fetchAlbumList() -> AnyPublisher<[Album], Error> {
         return dataStorage.fetchAlbumList()
             .subscribe(on: DispatchQueue.global())

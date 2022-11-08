@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Combine
-import MediaPlayer
 
 struct ContentView: View {
     @EnvironmentObject var playerViewModel: PlayerViewModel

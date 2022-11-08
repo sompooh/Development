@@ -1,5 +1,5 @@
 //
-//  MusicRepository.swift
+//  MusicDataRepository.swift
 //  DomainApp
 //
 //  Created by USER on 2022/11/07.
@@ -9,6 +9,6 @@
 import Foundation
 import Combine
 
-public protocol MusicRepository {
+public protocol MusicDataRepository {
     func fetchAlbumList() -> AnyPublisher<[Album], Error>
 }
