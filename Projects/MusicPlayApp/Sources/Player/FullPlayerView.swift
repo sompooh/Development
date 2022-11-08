@@ -46,7 +46,7 @@ struct FullPlayerView: View {
             }
             .matchedGeometryEffect(id: "player.info", in: animation)
             .padding(.bottom, 20)
-            ProgressBarView()
+            ProgressBarView(isExpand: true)
                 .environmentObject(playerViewModel)
                 .matchedGeometryEffect(id: "player.progress", in: animation)
                 .padding(20)
