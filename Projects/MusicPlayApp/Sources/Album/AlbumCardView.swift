@@ -8,7 +8,6 @@
 
 import Domain
 import SwiftUI
-import MediaPlayer
 
 struct AlbumCardView: View {
     let album: Album

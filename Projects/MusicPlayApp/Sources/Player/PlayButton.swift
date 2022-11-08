@@ -15,13 +15,13 @@ struct PlayButton: View {
     
     var body: some View {
         Button(action: {
-            if playerViewModel.musicPlayer.playbackState == .paused || playerViewModel.musicPlayer.playbackState == .stopped {
-                playerViewModel.musicPlayer.play()
+            if playerViewModel.playbackState == .paused || playerViewModel.playbackState == .stopped {
+                playerViewModel.play()
                 withAnimation {
                     playerViewModel.isPlaying = true
                 }
             } else {
-                playerViewModel.musicPlayer.pause()
+                playerViewModel.pause()
                 withAnimation {
                     playerViewModel.isPlaying = false
                 }
@@ -31,8 +31,9 @@ struct PlayButton: View {
                 Color.clear.frame(width: 44, height: 44)
                 Image(systemName: playerViewModel.isPlaying ? "pause.fill" : "play.fill")
                     .font(.system(size: fontSize))
-                    .foregroundColor(color)
+                    .foregroundColor(playerViewModel.currentTrack != nil ? .white : .gray)
             }
         }
+        .disabled(playerViewModel.currentTrack == nil)
     }
 }

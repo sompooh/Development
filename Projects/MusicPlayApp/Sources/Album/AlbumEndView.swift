@@ -8,7 +8,6 @@
 
 import Domain
 import SwiftUI
-import MediaPlayer
 
 struct AlbumEndView: View {
     @EnvironmentObject var playerViewModel: PlayerViewModel
@@ -53,7 +52,7 @@ struct AlbumEndView: View {
                         
                         Button(action: {
                             guard let track = album.trackList?.randomElement() else { return }
-                            playerViewModel.musicPlayer.shuffleMode = .songs
+                            playerViewModel.changeShuffleMode(isOnForce: true)
                             playerViewModel.play(track: track)
                         }) {
                             ZStack {

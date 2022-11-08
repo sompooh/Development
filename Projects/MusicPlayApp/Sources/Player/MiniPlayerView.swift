@@ -51,13 +51,12 @@ struct MiniPlayerView: View {
                     Spacer(minLength: 0)
                     HStack {
                         PlayButton(fontSize: 30, color: .white)
-                            .disabled(playerViewModel.currentTrack == nil)
                         Button(action: {
-                            playerViewModel.musicPlayer.skipToNextItem()
+                            playerViewModel.skipToNextItem()
                         }) {
                             Image(systemName: "forward.fill")
                                 .font(.system(size: 25))
-                                .foregroundColor(.white)
+                                .foregroundColor(playerViewModel.currentTrack != nil ? .white : .gray)
                         }
                         .disabled(playerViewModel.currentTrack == nil)
                     }

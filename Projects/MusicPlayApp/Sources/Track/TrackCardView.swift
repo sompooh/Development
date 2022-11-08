@@ -8,7 +8,6 @@
 
 import Domain
 import SwiftUI
-import MediaPlayer
 
 struct TrackCardView: View {
     @EnvironmentObject var playerViewModel: PlayerViewModel

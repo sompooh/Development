@@ -7,15 +7,20 @@
 
 import Data
 import Domain
+import MpPlayer
 import SwiftUI
 import MediaPlayer
 
 @main
 struct MusicPlayApp: App {
-    @ObservedObject var playerViewModel = PlayerViewModel.shared
+    @ObservedObject var playerViewModel: PlayerViewModel
     @ObservedObject var albumViewModel: AlbumViewModel
     
     init() {
+        let player = MPPlayer()
+        let playUseCase = MPMusicPlayUseCase(repository: player)
+        playerViewModel = PlayerViewModel(playUseCase: playUseCase)
+        
         let repository = MPMusicRepository(dataStorage: MPMusicStorage())
         let useCase = DefaultMusicFetchUseCase(repository: repository)
         albumViewModel = AlbumViewModel(useCase: useCase)
