@@ -19,8 +19,7 @@ struct MusicPlayApp: App {
         let repository = MPMusicRepository(dataStorage: MPMusicStorage())
         let useCase = DefaultMusicFetchUseCase(repository: repository)
         albumViewModel = AlbumViewModel(useCase: useCase)
-        
-        
+
         setNavigationBarConfigure()
     }
 

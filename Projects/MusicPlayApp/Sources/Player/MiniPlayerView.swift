@@ -29,8 +29,8 @@ struct MiniPlayerView: View {
                     Image(uiImage: currentTrack?.artworkImage ?? emptyArtwork)
                         .resizable()
                         .aspectRatio(1, contentMode: .fit)
-                        .matchedGeometryEffect(id: "player.artWork", in: animation)
                         .cornerRadius(4)
+                        .matchedGeometryEffect(id: "player.artWork", in: animation)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 3)
                     VStack(alignment: .leading) {
@@ -51,7 +51,7 @@ struct MiniPlayerView: View {
                     Spacer(minLength: 0)
                     HStack {
                         PlayButton(fontSize: 30, color: .white)
-                            .matchedGeometryEffect(id: "player.button", in: animation)
+                            .disabled(playerViewModel.currentTrack == nil)
                         Button(action: {
                             playerViewModel.musicPlayer.skipToNextItem()
                         }) {
@@ -59,16 +59,18 @@ struct MiniPlayerView: View {
                                 .font(.system(size: 25))
                                 .foregroundColor(.white)
                         }
+                        .disabled(playerViewModel.currentTrack == nil)
                     }
+                    .matchedGeometryEffect(id: "player.button", in: animation)
                     .padding(10)
                 }
             }
-            
             .frame(height: 64)
             .padding(.bottom, (safeAreaInset?.bottom ?? 0))
             .background(
                 VisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterialDark))
                     .matchedGeometryEffect(id: "player.background", in: animation)
+                    .matchedGeometryEffect(id: "player.handleview", in: animation)
             )
         }
         .onTapGesture {

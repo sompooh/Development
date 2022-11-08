@@ -22,13 +22,14 @@ struct FullPlayerView: View {
                 .foregroundColor(.gray)
                 .frame(width: 40, height: 8)
                 .cornerRadius(4)
+                .matchedGeometryEffect(id: "player.handleview", in: animation)
                 .padding()
             Spacer(minLength: 0)
             Image(uiImage: currentTrack?.artworkImage ?? emptyArtwork)
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
-                .matchedGeometryEffect(id: "player.artWork", in: animation)
                 .cornerRadius(10)
+                .matchedGeometryEffect(id: "player.artWork", in: animation)
                 .padding(20)
             VStack {
                 if let currentTrack = currentTrack {
@@ -79,7 +80,6 @@ struct FullPlayerView: View {
                 }
                 Spacer()
                 PlayButton(fontSize: 40, color: .white)
-                    .matchedGeometryEffect(id: "player.button", in: animation)
                 Spacer()
                 Button(action: {
                     playerViewModel.musicPlayer.skipToNextItem()
@@ -106,6 +106,7 @@ struct FullPlayerView: View {
                     }
                 }
             }
+            .matchedGeometryEffect(id: "player.button", in: animation)
             .padding(20)
             VolumeView()
                 .padding(20)
