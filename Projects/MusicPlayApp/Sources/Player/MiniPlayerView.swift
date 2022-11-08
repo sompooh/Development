@@ -22,7 +22,7 @@ struct MiniPlayerView: View {
         VStack(spacing: 0) {
             Spacer(minLength: 0)
             VStack(spacing: 0) {
-                ProgressBarView()
+                ProgressBarView(isExpand: false)
                     .environmentObject(playerViewModel)
                     .matchedGeometryEffect(id: "player.progress", in: animation)
                 HStack() {
