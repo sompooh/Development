@@ -21,16 +21,15 @@ struct FullPlayerView: View {
             Rectangle()
                 .foregroundColor(.gray)
                 .frame(width: 40, height: 8)
-                .cornerRadius(4)
-                .matchedGeometryEffect(id: "player.handleview", in: animation)
                 .padding()
+                .opacity(0)
             Spacer(minLength: 0)
             Image(uiImage: currentTrack?.artworkImage ?? emptyArtwork)
                 .resizable()
                 .aspectRatio(1, contentMode: .fit)
                 .cornerRadius(10)
                 .matchedGeometryEffect(id: "player.artWork", in: animation)
-                .padding(20)
+                .frame(width: 300, height: 300)
             VStack {
                 if let currentTrack = currentTrack {
                     Text(currentTrack.title ?? "")
@@ -46,7 +45,7 @@ struct FullPlayerView: View {
                 }
             }
             .matchedGeometryEffect(id: "player.info", in: animation)
-            .padding(.bottom, 20)
+            .padding(20)
             ProgressBarView(isExpand: true)
                 .environmentObject(playerViewModel)
                 .matchedGeometryEffect(id: "player.progress", in: animation)
@@ -108,13 +107,25 @@ struct FullPlayerView: View {
             }
             .matchedGeometryEffect(id: "player.button", in: animation)
             .padding(20)
-            VolumeView()
-                .padding(20)
+            if playerViewModel.isPlayerViewExpand {
+                VolumeView()
+                    .padding(20)
+            }
             Spacer(minLength: 0)
         }
         .background(
-            VisualEffectView(effect: UIBlurEffect(style: .dark))
-                .matchedGeometryEffect(id: "player.background", in: animation)
+            ZStack {
+                VisualEffectView(effect: UIBlurEffect(style: .dark))
+                VStack {
+                    Rectangle()
+                        .foregroundColor(.gray)
+                        .frame(width: 40, height: 8)
+                        .cornerRadius(4)
+                        .padding()
+                    Spacer()
+                }
+            }
+            .matchedGeometryEffect(id: "player.background", in: animation)
         )
         .cornerRadius(10)
         .offset(y: gestureOffset)

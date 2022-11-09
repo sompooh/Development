@@ -21,18 +21,17 @@ struct MiniPlayerView: View {
         let currentTrack = playerViewModel.currentTrack
         VStack(spacing: 0) {
             Spacer(minLength: 0)
-            VStack(spacing: 0) {
+            VStack(spacing: 10) {
                 ProgressBarView(isExpand: false)
                     .environmentObject(playerViewModel)
                     .matchedGeometryEffect(id: "player.progress", in: animation)
-                HStack() {
+                HStack(spacing: 10) {
                     Image(uiImage: currentTrack?.artworkImage ?? emptyArtwork)
                         .resizable()
                         .aspectRatio(1, contentMode: .fit)
                         .cornerRadius(4)
                         .matchedGeometryEffect(id: "player.artWork", in: animation)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 3)
+                        .frame(width: 44, height: 44)
                     VStack(alignment: .leading) {
                         if let currentTrack = currentTrack {
                             Text(currentTrack.title ?? "")
@@ -61,15 +60,14 @@ struct MiniPlayerView: View {
                         .disabled(playerViewModel.currentTrack == nil)
                     }
                     .matchedGeometryEffect(id: "player.button", in: animation)
-                    .padding(10)
                 }
+                .padding(.horizontal, 10)
             }
             .frame(height: 64)
             .padding(.bottom, (safeAreaInset?.bottom ?? 0))
             .background(
                 VisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterialDark))
                     .matchedGeometryEffect(id: "player.background", in: animation)
-                    .matchedGeometryEffect(id: "player.handleview", in: animation)
             )
         }
         .onTapGesture {
