@@ -14,7 +14,7 @@ struct AlbumsView: View {
     @EnvironmentObject var albumViewModel: AlbumViewModel
     
     var body: some View {
-        NavigationView {
+        DefaultNavigationView(title: "Library", displayMode: .large) {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 20), GridItem(.flexible(), spacing: 20)], spacing: 20) {
                     ForEach(albumViewModel.albumList, id: \.self) { album in
