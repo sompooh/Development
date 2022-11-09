@@ -29,6 +29,7 @@ struct TrackCardView: View {
             }
             Spacer()
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             playerViewModel.play(track: track)
             withAnimation {
